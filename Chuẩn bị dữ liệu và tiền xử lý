@@ -1,0 +1,15 @@
+# Tạo các câu hỏi và câu trả lời
+questions = ["Xin chào", "Bạn tên gì?", "Bạn làm gì?", "Ngày hôm nay là ngày mấy?"]
+answers = ["Chào bạn!", "Mình tên là VoicelyAI", "Mình là một chatbot AI", "Hôm nay là ngày 5 tháng 8, 2023"]
+
+# Tiền xử lý dữ liệu
+lemmatizer = WordNetLemmatizer()
+def pre_processing(text):
+    text = text.lower()
+    words = nltk.word_tokenize(text)
+    words = [lemmatizer.lemmatize(word) for word in words]
+    return words
+
+# Tạo từ điển từ vựng duy nhất cho cả câu hỏi và câu trả lời    
+vocabulary = sorted(list(set(pre_processing(" ".join(questions + answers)))))
+word_index = dict((word, index + 1) for index, word in enumerate(vocabulary))
