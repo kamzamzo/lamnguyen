@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Chatbot</h1>
+    <form id="chat_form" action="/get_response" method="POST">
+        <input id="user_input" type="text" placeholder="Nhập câu hỏi..." name="user_input">
+        <button type="submit">Gửi</button>
+    </form>
+    <div id="response_area"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#chat_form").submit(function(event) {
+                event.preventDefault();
+                var user_input = $("#user_input").val();
+                $.post("/get_response", {
+                        user_input: user_input
+                    },
+                    function(response) {
+                        $("#response_area").append("<p><strong>Bạn:</strong> " + user_input + "</p>");
+                        $("#response_area").append("<p><strong>Chatbot:</strong> " + response + "</p>");
+                        $("#user_input").val("");
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
